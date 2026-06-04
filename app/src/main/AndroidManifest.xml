@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Permissões necessárias -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application android:label="FlashDrive Hub TV">
+    <!-- Indica que o app é para TV (Controle Remoto) -->
+    <uses-feature android:name="android.software.leanback" android:required="true" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <application
+        android:label="FlashDrive Hub TV"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+        
         <activity
             android:name="com.meuapp.tv.MainActivity"
             android:exported="true">
+            
             <intent-filter>
+                <!-- Define esta como a tela de entrada -->
                 <action android:name="android.intent.action.MAIN" />
+                
+                <!-- Faz o app aparecer no menu de Android TV (TCL) -->
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+                
+                <!-- Compatibilidade geral -->
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
