@@ -23,13 +23,22 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+
+    // ESTE BLOCO ABAIXO RESOLVE O ERRO QUE VOCÊ RECEBEU
+    packaging {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += 'META-INF/INDEX.LIST'
+            excludes += 'META-INF/io.netty.versions.properties'
+        }
+    }
 }
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     
-    // Ktor 2.3.2 - Versão estável
+    // Ktor para o servidor
     implementation "io.ktor:ktor-server-core:2.3.2"
     implementation "io.ktor:ktor-server-netty:2.3.2"
     implementation "org.slf4j:slf4j-simple:2.0.7"
