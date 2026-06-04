@@ -1,0 +1,31 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    namespace 'com.meuapp.tv'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.meuapp.tv"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.leanback:leanback:1.0.0'
+    implementation 'io.ktor:ktor-server-netty:2.2.3'
+    implementation 'io.ktor:ktor-server-core:2.2.3'
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+}
