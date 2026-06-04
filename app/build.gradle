@@ -6,43 +6,25 @@ plugins {
 android {
     namespace 'com.meuapp.tv'
     compileSdk 33
-
     defaultConfig {
         applicationId "com.meuapp.tv"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
-        
-        // Habilita o suporte aos ícones que criamos
+        versionCode 2
+        versionName "1.1"
         vectorDrawables.useSupportLibrary = true
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
-    }
-
-    packaging {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-            excludes += 'META-INF/INDEX.LIST'
-            excludes += 'META-INF/io.netty.versions.properties'
-        }
-    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17 ; targetCompatibility JavaVersion.VERSION_17 }
+    kotlinOptions { jvmTarget = '17' }
+    packaging { resources { excludes += 'META-INF/*' } }
 }
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.leanback:leanback:1.0.0'
-    
-    // Ktor para o servidor de arquivos
     implementation "io.ktor:ktor-server-core:2.3.2"
     implementation "io.ktor:ktor-server-netty:2.3.2"
-    implementation "org.slf4j:slf4j-simple:2.0.7"
+    // Biblioteca para gerar o QR Code
+    implementation 'com.google.zxing:core:3.5.1'
 }
