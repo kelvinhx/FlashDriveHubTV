@@ -5,41 +5,52 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.graphics.Color
 import android.view.Gravity
-import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.routing.*
+import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.http.*
+import kotlin.concurrent.thread
 
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Cria a interface visual direto por código (evita erro de arquivo faltando)
+        // Interface visual simples criada por código
         val layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setBackgroundColor(Color.BLACK)
+            setBackgroundColor(Color.parseColor("#121212"))
             gravity = Gravity.CENTER
         }
         
         val text = TextView(this).apply {
-            text = "FlashDrive Hub TV Ativo\n\nEscaneie o IP da TV na porta 8080"
+            text = "FlashDrive Hub TV Ativo\n\nConecte-se via IP na porta 8080"
             setTextColor(Color.WHITE)
-            textSize = 24f
+            textSize = 20f
             gravity = Gravity.CENTER
         }
         
         layout.addView(text)
         setContentView(layout)
 
-        // Inicia o servidor
-        embeddedServer(Netty, port = 8080) {
-            routing {
-                get("/") {
-                    call.respondText("<h1>Hub Conectado!</h1>", ContentType.Text.Html)
-                }
+        // Inicia o servidor em segundo plano (evita travamento)
+        thread {
+            try {
+                embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
+                    routing {
+                        get("/") {
+                            call.respondText(
+                                "<html><body style='text-align:center;font-family:sans-serif;'><h1>Hub Ativo!</h1><p>Pronto para receber arquivos.</p></body></html>",
+                                ContentType.Text.Html
+                            )
+                        }
+                    }
+                }.start(wait = true)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        }.start(wait = false)
+        }
     }
 }
