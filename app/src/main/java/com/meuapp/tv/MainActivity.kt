@@ -1,28 +1,43 @@
 package com.meuapp.tv
 
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.graphics.Color
+import android.view.Gravity
 import androidx.fragment.app.FragmentActivity
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.http.*
-import java.io.File
 
 class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Inicia o servidor para o iPhone se conectar
+        // Cria a interface visual direto por código (evita erro de arquivo faltando)
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setBackgroundColor(Color.BLACK)
+            gravity = Gravity.CENTER
+        }
+        
+        val text = TextView(this).apply {
+            text = "FlashDrive Hub TV Ativo\n\nEscaneie o IP da TV na porta 8080"
+            setTextColor(Color.WHITE)
+            textSize = 24f
+            gravity = Gravity.CENTER
+        }
+        
+        layout.addView(text)
+        setContentView(layout)
+
+        // Inicia o servidor
         embeddedServer(Netty, port = 8080) {
             routing {
                 get("/") {
-                    call.respondText(
-                        "<html><body style='background:#000;color:#fff;text-align:center;padding:50px;font-family:sans-serif;'>" +
-                        "<h1>Conectado à TCL 32S5400AF</h1>" +
-                        "<p>O Hub de Arquivos está ativo.</p></body></html>",
-                        ContentType.Text.Html
-                    )
+                    call.respondText("<h1>Hub Conectado!</h1>", ContentType.Text.Html)
                 }
             }
         }.start(wait = false)
