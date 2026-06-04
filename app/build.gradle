@@ -15,6 +15,15 @@ android {
         versionName "1.0"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -24,8 +33,11 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.leanback:leanback:1.0.0'
-    implementation 'io.ktor:ktor-server-netty:2.2.3'
-    implementation 'io.ktor:ktor-server-core:2.2.3'
-    implementation 'org.slf4j:slf4j-simple:1.7.36'
+    
+    // Ktor para o servidor
+    implementation 'io.ktor:ktor-server-netty:2.3.2'
+    implementation 'io.ktor:ktor-server-core:2.3.2'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
 }
