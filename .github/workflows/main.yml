@@ -14,8 +14,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Compilar com Gradle Direto
-        run: gradle assembleDebug
+      - name: Configurar Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.1.1
+
+      - name: Executar Compilação
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload do APK Final
         uses: actions/upload-artifact@v4
