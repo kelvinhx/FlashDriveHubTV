@@ -14,16 +14,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Criar Gradle Wrapper
-        run: gradle wrapper
+      - name: Compilar com Gradle Direto
+        run: gradle assembleDebug
 
-      - name: Dar permissão ao Gradle
-        run: chmod +x gradlew
-
-      - name: Compilar com Gradle
-        run: ./gradlew assembleDebug
-
-      - name: Upload do APK Final (Versão Atualizada)
+      - name: Upload do APK Final
         uses: actions/upload-artifact@v4
         with:
           name: FlashDriveHub-TCL
