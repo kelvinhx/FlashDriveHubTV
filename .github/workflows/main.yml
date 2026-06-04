@@ -1,0 +1,27 @@
+name: Compilar APK
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v3
+
+      - name: Configurar Java 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Criar Gradle Wrapper
+        run: gradle wrapper
+
+      - name: Compilar com Gradle
+        run: ./gradlew assembleDebug
+
+      - name: Upload do APK Final
+        uses: actions/upload-artifact@v3
+        with:
+          name: FlashDriveHub-TCL
+          path: app/build/outputs/apk/debug/app-debug.apk
