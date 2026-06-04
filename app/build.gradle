@@ -13,6 +13,9 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        
+        // Habilita o suporte aos ícones que criamos
+        vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {
@@ -24,7 +27,6 @@ android {
         jvmTarget = '17'
     }
 
-    // ESTE BLOCO ABAIXO RESOLVE O ERRO QUE VOCÊ RECEBEU
     packaging {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -37,8 +39,9 @@ android {
 dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.leanback:leanback:1.0.0'
     
-    // Ktor para o servidor
+    // Ktor para o servidor de arquivos
     implementation "io.ktor:ktor-server-core:2.3.2"
     implementation "io.ktor:ktor-server-netty:2.3.2"
     implementation "org.slf4j:slf4j-simple:2.0.7"
